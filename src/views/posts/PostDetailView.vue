@@ -22,9 +22,6 @@
         <button class="btn btn-outline-danger">삭제</button>
       </div>
     </div>
-    <hr class="py-4">
-    <p>params : {{ $route.params }}</p>
-    <p>query : {{ $route.query }}</p>
   </div>
 </template>
 
