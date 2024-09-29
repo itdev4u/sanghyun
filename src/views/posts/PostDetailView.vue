@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>{{ form.title }}</h2>
-    <p>{{ form.content }}</p>
-    <p class="text-muted">{{ form.createdAt }}</p>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">{{ post.createdAt }}</p>
     <hr class="my-4"/>
     <div class="row g-2">
       <div class="col-auto">
@@ -19,7 +19,7 @@
         <button class="btn btn-outline-primary" @click="goEditPage">수정</button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-outline-danger">삭제</button>
+        <button class="btn btn-outline-danger" @click="remove">삭제</button>
       </div>
     </div>
   </div>
@@ -30,9 +30,10 @@
 import {  useRouter } from 'vue-router';
 import { getPostById } from '@/api/posts';
 import { ref } from 'vue';
+import { deletePost } from '@/api/posts';
 
 const props = defineProps({
-  id: String,
+  id: Number,
 });
 
 const router = useRouter();
@@ -43,14 +44,32 @@ const router = useRouter();
  * 장점 : 객체할당이 가능 / primitive, 참조형도 가능
  * 단점 : form.value.title
  */
-const form = ref({});
-console.log('posts : ', getPostById(props.id));
-const fetchPost = () => {
-  const data = getPostById(props.id);
-  form.value = {...data};
-}
-fetchPost();
+const post = ref({});
 
+const fetchPost = async () => {
+  try {
+    const { data }  = await getPostById(props.id);
+    setPost(data);
+  } catch(error) {
+    console.error(error);
+  }
+};
+const setPost = ({title, content, createdAt}) => {
+  post.value.title = title;
+  post.value.content = content;
+  post.value.createdAt = createdAt;
+};
+fetchPost();
+const remove = async () => {
+  try {
+    if(confirm('삭제하시겠습니까?')) {
+      await deletePost(props.id);
+      router.push({ name: 'PostList'});
+    }
+  } catch(error) {
+    console.error(error);
+  }
+}
 const goListPage = () => router.push({ name: 'PostList'});
 const goEditPage = () => router.push({ name: 'PostEdit', params: { id: props.id }});
 </script>
