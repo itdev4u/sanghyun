@@ -10,6 +10,7 @@ import NestedView from '@/views/nested/NestedView.vue';
 import NestedOneView from '@/views/nested/NestedOneView.vue';
 import NestedTwoView from '@/views/nested/NestedTwoView.vue';
 import NestedHomeView from '@/views/nested/NestedHomeView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
         component: NestedHomeView
       },
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
   },
 ];
 

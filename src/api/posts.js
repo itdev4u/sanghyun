@@ -20,3 +20,7 @@ export function updatePost(id, data) {
 export function deletePost(id) {
   return axios.delete(`http://localhost:5000/posts/${id}`);
 }
+
+export function loginMember(data) {
+  return axios.post('http://localhost:8080/api/member/login', data);
+}

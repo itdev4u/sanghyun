@@ -23,8 +23,10 @@
             </li>
           </ul>
           <div class="d-flex" role="search">
-            <button class="btn btn-outline-light" type="button"
+            <button class="btn btn-outline-light me-2" type="button"
               @click="goPage">글쓰기</button>
+            <button class="btn btn-outline-light" type="button"
+              @click="goLogin">로그인</button>
           </div>
         </div>
       </div>
@@ -39,6 +41,10 @@ const router = useRouter();
 const goPage = () => {
   router.push('/posts/create');
 };
+
+const goLogin = () => {
+  router.push('/login');
+}
 </script>
 
 <style lang="scss" scoped>
