@@ -1,9 +1,9 @@
 // axios
 import axios from "axios";
 
-export function getPosts(params) {
-  return axios.get('http://localhost:5000/posts', { params });
-}
+// export function getPosts(params) {
+//   return axios.get('http://localhost:5000/posts', { params });
+// }
 
 export function getPostById(id) {
   return axios.get(`http://localhost:5000/posts/${id}`);
@@ -23,4 +23,8 @@ export function deletePost(id) {
 
 export function loginMember(data) {
   return axios.post('http://localhost:8080/api/member/login', data);
+}
+
+export function getPosts(params) {
+  return axios.post('http://localhost:8080/api/board/getPosts', params);
 }

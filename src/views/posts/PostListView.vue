@@ -17,33 +17,16 @@
     </form>
     <hr class="my-4">
     <div class="row g-3">
-      <div v-for="post in posts" :key="post.id" class="col-4">
+      <div v-for="post in posts" :key="post.UUID" class="col-4">
         <PostItem 
-          :title="post.title" 
-          :content="post.content" 
-          :created-at="post.createdAt"
-          @click="goPage(post.id)">
+          :title="post.TITLE" 
+          :content="post.CONTENT" 
+          :created-at="post.REG_DTM"
+          @click="goPage(post.UUID)">
       </PostItem>
       </div>
     </div>
-    <hr class="my-4"></hr>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" :class="{ disabled: !( params._page > 1) }">
-          <a class="page-link" href="#" aria-label="Previous" @click.prevent="--params._page">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li v-for="page in pageCount" :key="page" class="page-item" :class="{ active: params._page === page }">
-          <a class="page-link" href="#" @click.prevent="params._page = page">{{ page }}</a>
-        </li>
-        <li class="page-item" :class="{ disabled: !(params._page < pageCount) }">
-          <a class="page-link" href="#" aria-label="Next"  @click.prevent="++params._page">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>    
+  
     
   </div>
 </template>
@@ -66,36 +49,38 @@ const params = ref({
   _order: 'desc',
   _limit: 3,
   _page: 1,
-  title_like: ''
+  title_like: 'rrrr'
 });
 
 const totalCount = ref(0);
-const pageCount = computed(() => Math.ceil(totalCount.value / params.value._limit));
-console.log('pageCount ==> ', pageCount.value);
-console.log('_limit ==> ', params.value._limit);
-console.log('totalCount ==> ', totalCount.value);
 
 const fetchPosts = async () => {
-  const {data, headers } = await getPosts(params.value);
-  posts.value = data;
-  totalCount.value = headers['x-total-count'];
-}
-
-//fetchPosts();
-/* watchEffect에 callback 함수를 넣어주면 callback함수에서 사용하는 값이 변경되는 경우 함수를 재실행 해준다. */
-watchEffect(fetchPosts);
-const goPage = (id) => {
-  router.push(`/posts/${id}`);
-  //router.push('/posts/' + id);
-  /*
-  router.push{{
-    name: 'PostDetail',
-    params : {
-      id
-    }
-  }}
-  */
+  //const { data } = await getPosts(params.value);
+  try {
+    getPosts({
+      ...params.value
+    }).then(res => {
+      console.log(res.data);
+      posts.value = res.data.boardList;
+      /*
+      if(res.data.RESULT === 'SUCCESS') {
+        alert('로그인 성공했습니다.');
+      } else {
+        alert('아이디와 비밀번호를 확인 바랍니다.');
+      }
+      */
+    })
+  } catch(err) {
+    console.log('err : ', err);
+  }  
 };
+
+
+
+
+fetchPosts();
+/* watchEffect에 callback 함수를 넣어주면 callback함수에서 사용하는 값이 변경되는 경우 함수를 재실행 해준다. */
+
 </script>
 
 <style lang="scss" scoped>
