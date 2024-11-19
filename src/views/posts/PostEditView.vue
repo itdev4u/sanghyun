@@ -49,11 +49,12 @@ const fetchPost = async () => {
     console.error(error);
   }
 };
-const setForm = ({title, content, createdAt}) => {
-  form.value.title = title;
-  form.value.content = content;
-  form.value.createdAt = createdAt;
+const setForm = (data) => {
+  form.value.title = data.boardMap.TITLE;
+  form.value.content = data.boardMap.CONTENT;
+  form.value.createdAt = data.boardMap.REG_DTM;
 };
+
 fetchPost();
 
 const edit = async () => {

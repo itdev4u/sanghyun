@@ -36,14 +36,13 @@ const form = ref({
 const save = () => {
   try {
     createPost({
-      ...form.value,
-      createdAt: Date.now(),
-    });
-    router.push({name: 'PostList'});
-  } catch(error) {
-    console.log(error);
+      ...form.value
+    }).then(res => {
+      router.push({name: 'PostList'});      
+    })
+  } catch(err) {
+    console.log('err : ', err);
   }
-
 };
 const goListPage = () => router.push({name: 'PostList'});
 </script>

@@ -49,7 +49,7 @@ const params = ref({
   _order: 'desc',
   _limit: 3,
   _page: 1,
-  title_like: 'rrrr'
+  title_like: ''
 });
 
 const totalCount = ref(0);
@@ -62,21 +62,15 @@ const fetchPosts = async () => {
     }).then(res => {
       console.log(res.data);
       posts.value = res.data.boardList;
-      /*
-      if(res.data.RESULT === 'SUCCESS') {
-        alert('로그인 성공했습니다.');
-      } else {
-        alert('아이디와 비밀번호를 확인 바랍니다.');
-      }
-      */
     })
   } catch(err) {
     console.log('err : ', err);
   }  
 };
 
-
-
+const goPage = (uuid) => {
+  router.push(`/posts/${uuid}`);
+};
 
 fetchPosts();
 /* watchEffect에 callback 함수를 넣어주면 callback함수에서 사용하는 값이 변경되는 경우 함수를 재실행 해준다. */
