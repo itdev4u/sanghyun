@@ -4,7 +4,7 @@
       <p class="card-text">
         {{ content }}
       </p>
-      <p class="text-muted"> {{ createdAt }}</p>      
+      <p class="text-muted">{{ createUserNm }} {{ createdAt }}</p>      
     </AppCard>
 </template>
 
@@ -18,6 +18,9 @@ defineProps({
   },
   content: {
     type: String, 
+  },
+  createUserNm: {
+    type: String,
   },
   createdAt: {
     type: [String, Date, Number],

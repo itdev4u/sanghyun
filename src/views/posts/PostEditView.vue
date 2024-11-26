@@ -41,6 +41,7 @@ const form = ref({
   title: null,
   content: null
 });
+
 const fetchPost = async () => {
   try {
     const { data }  = await getPostById(id);
@@ -49,6 +50,7 @@ const fetchPost = async () => {
     console.error(error);
   }
 };
+
 const setForm = (data) => {
   form.value.title = data.boardMap.TITLE;
   form.value.content = data.boardMap.CONTENT;
