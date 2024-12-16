@@ -11,6 +11,7 @@ import NestedOneView from '@/views/nested/NestedOneView.vue';
 import NestedTwoView from '@/views/nested/NestedTwoView.vue';
 import NestedHomeView from '@/views/nested/NestedHomeView.vue';
 import LoginView from '@/views/LoginView.vue';
+import TableView from '@/views/table/TableList.vue'
 
 const routes = [
   {
@@ -74,6 +75,11 @@ const routes = [
     name: 'Login',
     component: LoginView
   },
+  {
+    path: '/table',
+    name: 'Table',
+    component: TableView
+  }
 ];
 
 const router = createRouter({

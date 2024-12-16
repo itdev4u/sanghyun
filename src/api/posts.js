@@ -44,3 +44,7 @@ export function loginMember(data) {
   return axios.post('http://localhost:8080/api/member/login', data);
 }
 
+export function getMembers(params) {
+  return axios.post('http://localhost:8080/api/member/getMembers', params);
+}
+
